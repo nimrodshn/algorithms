@@ -29,6 +29,10 @@ func TestInsertionSort(t *testing.T) {
 			input:    []int{1, 2, 3, 7, 6, 9, 4},
 			expected: []int{1, 2, 3, 4, 6, 7, 9},
 		},
+		{
+			input:    []int{31, 41, 59, 26, 41, 58},
+			expected: []int{26, 31, 41, 41, 58, 59},
+		},
 	}
 	for _, test := range tests {
 		result := InsertionSort(test.input)
