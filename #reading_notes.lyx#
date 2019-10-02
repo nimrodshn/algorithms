@@ -334,25 +334,48 @@ end{algorithmic}
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-2.1-4 Input: Given tw 
+2.1-4 
+\end_layout
+
+\begin_layout Itemize
+Input: two 
 \begin_inset Formula $n$
 \end_inset
 
- bit
+-bit numbers 
+\begin_inset Formula $A,\,B$
+\end_inset
+
+.
 \end_layout
 
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
+\begin_layout Itemize
+Output: the sum of 
+\begin_inset Formula $A,B$
+\end_inset
+
+ - an 
+\begin_inset Formula $n+1$
+\end_inset
+
+-bit number.
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float algorithm
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-BinaryAddition(A,B)
+BinaryAddition(A,B,n)
 \end_layout
 
 \end_inset
@@ -373,7 +396,25 @@ begin{algorithmic}[1]
 
 \end_inset
 
- 
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+State carry $
+\backslash
+gets$ 0
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -386,7 +427,7 @@ status open
 \backslash
 For{$i$ $
 \backslash
-gets$ 2 to length(A)}
+gets$ 1 to n}
 \end_layout
 
 \end_inset
@@ -402,9 +443,9 @@ status open
 
 
 \backslash
-For{$j$ $
+State C[i] $
 \backslash
-gets$ i to 2}
+gets$ A[i]+B[i]+carry (mod 2)
 \end_layout
 
 \end_inset
@@ -420,77 +461,9 @@ status open
 
 
 \backslash
-If{A[j] < A[j-1]}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
+State carry $
 \backslash
-State $k$ $
-\backslash
-gets$ A[j-1]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-State A[j-1] $
-\backslash
-gets$ A[j]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-State A[j] $
-\backslash
-gets$ $k$
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndIf
+gets$ A[i] * B[i]
 \end_layout
 
 \end_inset
@@ -522,7 +495,25 @@ status open
 
 
 \backslash
-EndFor
+State C[n+1] $
+\backslash
+gets$ carry
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+State return C
 \end_layout
 
 \end_inset
@@ -545,6 +536,125 @@ end{algorithmic}
 
 
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+2.2-3 Define 
+\begin_inset Formula $X$
+\end_inset
+
+ = The number of elements checked in a 
+\begin_inset Quotes eld
+\end_inset
+
+brute force
+\begin_inset Quotes erd
+\end_inset
+
+ linear search.
+\end_layout
+
+\begin_layout Standard
+Than 
+\begin_inset Formula $X\in\{1...n\}$
+\end_inset
+
+ and the average number of elements checked in a linear search is exactly:
+\begin_inset Formula 
+\[
+E[X]=\sum_{i=1}^{n}\frac{1}{n}i=\frac{1}{n}\sum_{i=1}^{n}i=\frac{n(n-1)}{2n}=\Theta(n)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The worst case is where the last element of the array is the one searched
+ for - resulting in an 
+\begin_inset Formula $\Theta(n)$
+\end_inset
+
+ run time.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+2.3-3 
+\begin_inset Formula 
+\[
+T(n)=\begin{cases}
+2 & n=2\\
+2T(\frac{n}{2})+n & n>2
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Q: Proof by induction that if n is an exact power of two (that is 
+\begin_inset Formula $n=2^{k}$
+\end_inset
+
+ for some constant 
+\begin_inset Formula $k\geq1$
+\end_inset
+
+) than 
+\begin_inset Formula $T(n)=nlogn$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Proof: By induction.
+\end_layout
+
+\begin_layout Standard
+Base case: 
+\begin_inset Formula $k=1$
+\end_inset
+
+ than 
+\begin_inset Formula $T(n)=2=2log2=nlogn$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assumption: Assume the above holds for some 
+\begin_inset Formula $k>1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Induction step: We now prove the statement for 
+\begin_inset Formula $n=2^{k+1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Plugging in to the formula 
+\begin_inset Formula 
+\begin{align*}
+T(n) & =2T(\frac{n}{2})+n=2T(\frac{2^{k+1}}{2})+2^{k+1}\\
+= & 2T(2^{k})+2
+\end{align*}
 
 \end_inset
 
