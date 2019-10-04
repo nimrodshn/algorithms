@@ -5,11 +5,50 @@
 \save_transient_properties true
 \origin unavailable
 \textclass article
-\begin_preamble
-\usepackage{algorithm, algpseudocode}
-\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
+\begin_local_layout
+# Algorithm textclass definition file. Taken from initial LyX source code
+# Author:  BG <nicolas.marsgui@libertysurf.fr>
+# Version: 0.3
+
+# This file contains a text style related to the algorithm and algorithmic
+# packages, in order to write some algorithms through lyx.
+
+Format 66
+Style Algorithm
+#  Margin               First_Dynamic
+  LatexType             Item_Environment
+  LatexName             algor
+  NextNoIndent          1
+  LeftMargin            MM
+  LabelSep              xxx
+  ItemSep               0
+  TopSep                0.5
+  BottomSep             0.5
+  ParSep                0
+  Align                 Block
+  AlignPossible         Block, Left
+  LabelType             Manual
+  LabelString           MM
+  FreeSpacing           0
+
+  # label font definition
+  LabelFont
+    Series              Bold
+  EndFont
+
+  Preamble
+    \usepackage{algolyx}
+  EndPreamble
+End
+
+Style Algorithm_(num)
+  CopyStyle             Algorithm
+  LatexParam            [1]
+
+End
+\end_local_layout
 \language english
 \language_package default
 \inputencoding utf8
@@ -92,7 +131,7 @@ Nimrod Shneor
 \begin_inset Newpage pagebreak
 \end_inset
 
-Chapter 1
+Chapter 2
 \end_layout
 
 \begin_layout Section*
@@ -119,7 +158,7 @@ A & =[26,31,41,41,59]
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-21.1-2 
+2.1-4 
 \begin_inset Float algorithm
 wide false
 sideways false
@@ -133,7 +172,7 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Non-Increasing-Insertion-Sort(A)
+BinaryAddition(A,B,n)
 \end_layout
 
 \end_inset
@@ -141,187 +180,59 @@ Non-Increasing-Insertion-Sort(A)
 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{algorithmic}[1]
-\end_layout
-
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-For{$i$ $
-\backslash
-gets$ 2 to length(A)}
-\end_layout
-
+\begin_layout Algorithm
+* 
+\begin_inset Formula $carry\gets0$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
+\begin_layout Algorithm
+for 
+\begin_inset Formula $i\gets1$
+\end_inset
 
-\begin_layout Plain Layout
+ to 
+\begin_inset Formula $n$
+\end_inset
 
-
-\backslash
-For{$j$ $
-\backslash
-gets$ i to 2}
+:
 \end_layout
 
+\begin_deeper
+\begin_layout Algorithm
+* 
+\begin_inset Formula $C[i]\gets(A[i]+B[i]+C[i])\,mod2$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-If{A[j] < A[j-1]}
-\end_layout
-
+\begin_layout Algorithm
+* 
+\begin_inset Formula $carry\gets A[i]*B[i]$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-State $k$ $
-\backslash
-gets$ A[j-1]
+\end_deeper
+\begin_layout Algorithm
+endfor
 \end_layout
 
+\begin_layout Algorithm
+* 
+\begin_inset Formula $C[i+1]\gets carry$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-State A[j-1] $
-\backslash
-gets$ A[j]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-State A[j] $
-\backslash
-gets$ $k$
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndIf
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndFor
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndFor
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{algorithmic}
-\end_layout
-
+\begin_layout Algorithm
+* return 
+\begin_inset Formula $C$
 \end_inset
 
 
@@ -330,11 +241,6 @@ end{algorithmic}
 \end_inset
 
 
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-2.1-4 
 \end_layout
 
 \begin_layout Itemize
@@ -359,187 +265,6 @@ Output: the sum of
 \end_inset
 
 -bit number.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float algorithm
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-BinaryAddition(A,B,n)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{algorithmic}[1]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-State carry $
-\backslash
-gets$ 0
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-For{$i$ $
-\backslash
-gets$ 1 to n}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-State C[i] $
-\backslash
-gets$ A[i]+B[i]+carry (mod 2)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-State carry $
-\backslash
-gets$ A[i] * B[i]
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-EndFor
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-State C[n+1] $
-\backslash
-gets$ carry
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-State return C
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{algorithmic}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Labeling
@@ -665,6 +390,164 @@ T(n) & =2T(\frac{n}{2})+n=2T(\frac{2^{k+1}}{2})+2^{k+1}\\
 
 \begin_layout Standard
 \begin_inset Formula $\square$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+2.3-5 
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+BinarySearch(A,x)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $l\gets0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $r\gets length(A)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+while 
+\begin_inset Formula $l<r-1$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+if 
+\begin_inset Formula $x=A[\frac{l+r}{2}]$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+return 
+\begin_inset Formula $\frac{l+r}{2}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endif
+\end_layout
+
+\begin_layout Algorithm
+if 
+\begin_inset Formula $x>A[\frac{l+r}{2}]$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* 
+\begin_inset Formula $l=A[\frac{l+r}{2}]$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+else
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* 
+\begin_inset Formula $r=A[\frac{l+r}{2}]$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endif
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endwhile
+\end_layout
+
+\begin_layout Algorithm
+* return -1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At each iteration of the while loop the distance between the two pointers
+ - 
+\begin_inset Formula $l,r$
+\end_inset
+
+ - is halfed until the element is found or we return -1.
+ The while loop will terminate once the two pointers are at distance two
+ at which point either the element 
+\begin_inset Formula $x$
+\end_inset
+
+ is found or the loop will terminate.
+ Thus the distance between the two pointers at each iteration 
+\begin_inset Formula $i$
+\end_inset
+
+ is percisly 
+\begin_inset Formula $\frac{length(A)}{2^{i}}=\frac{n}{2^{i}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At the time of the termination the distance between the two pointers is
+ two, thus -
+\begin_inset Formula 
+\begin{align*}
+\frac{n}{2^{i}} & =2\\
+n & =2^{i+1}\\
+log(n) & =i+1\\
+log(n)-1 & =i\\
+\text{\ensuremath{\Theta(log(n))}} & =i
+\end{align*}
+
 \end_inset
 
 
