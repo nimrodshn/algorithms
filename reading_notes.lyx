@@ -553,5 +553,450 @@ log(n)-1 & =i\\
 
 \end_layout
 
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+2.3-7 
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+FindSum(A,x)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $B\gets MergeSort(A)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $l\gets0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $r\gets length(B)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+while 
+\begin_inset Formula $l<r$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+if 
+\begin_inset Formula $B[l]+B[r]==x$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* return true
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+elseif 
+\begin_inset Formula $B[l]+B[r]<x$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* 
+\begin_inset Formula $l\gets l+1$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+else 
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* 
+\begin_inset Formula $r\gets r-1$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endif
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endwhile
+\end_layout
+
+\begin_layout Algorithm
+* return false
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Solutions to selected problems:
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+2-1 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+a Given 
+\begin_inset Formula $\frac{n}{k}$
+\end_inset
+
+ lists each of size 
+\begin_inset Formula $k$
+\end_inset
+
+.
+ Applying 
+\begin_inset Formula $InsertionSort$
+\end_inset
+
+ to each list seperatly yealds worst-case runtime of 
+\begin_inset Formula $\Theta(k^{2})$
+\end_inset
+
+.
+ Doing this for all 
+\begin_inset Formula $\frac{n}{k}$
+\end_inset
+
+ lists yealds an 
+\begin_inset Formula $\Theta(\frac{n}{k}k^{2})=\Theta(nk)$
+\end_inset
+
+ runtime algorithm.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+b 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ModifiedMergeSort(A)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* Split 
+\begin_inset Formula $A$
+\end_inset
+
+ to form 
+\begin_inset Formula $S=[A_{1},..,A_{\frac{n}{k}}]$
+\end_inset
+
+ array of sub-arrays of size 
+\begin_inset Formula $k$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+for 
+\begin_inset Formula $i\gets1$
+\end_inset
+
+ to 
+\begin_inset Formula $\frac{n}{k}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* 
+\begin_inset Formula $A_{i}\gets InsertionSort(A_{i})$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endfor
+\end_layout
+
+\begin_layout Algorithm
+while 
+\begin_inset Formula $|S|>1$
+\end_inset
+
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* 
+\begin_inset Formula $l\gets1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $r\gets length(S)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $S'\gets\Phi$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+while 
+\begin_inset Formula $l<r$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* 
+\begin_inset Formula $S'\gets S'\bigcup Merge(A_{l},A_{r})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $l\gets l+1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $r\gets r-1$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endwhile
+\end_layout
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $S\gets S'$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endwhile
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We prove that at each iteration of the outer while loop the size of 
+\begin_inset Formula $|S|$
+\end_inset
+
+ is 
+\begin_inset Formula $\frac{n}{2^{i}k}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Proof: By induction,
+\end_layout
+
+\begin_layout Standard
+Base 
+\begin_inset Formula $i=1$
+\end_inset
+
+: In the first iteration we set 
+\begin_inset Formula $l$
+\end_inset
+
+ and 
+\begin_inset Formula $r$
+\end_inset
+
+ to hold the two opposit ends of 
+\begin_inset Formula $S$
+\end_inset
+
+, at each iteration we merge two subsets and continue so on until 
+\begin_inset Formula $l=r$
+\end_inset
+
+ or 
+\begin_inset Formula $l>r$
+\end_inset
+
+ (depending on the number of subsets) because at each iteration we merged
+ two subsets the number of iterations of the inner loop is percisly 
+\begin_inset Formula $\frac{n}{2k}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Step: Assume that the number of subsets in 
+\begin_inset Formula $|S|$
+\end_inset
+
+ is 
+\begin_inset Formula $\frac{n}{2^{i}k}$
+\end_inset
+
+ at iteration 
+\begin_inset Formula $i$
+\end_inset
+
+ next we prove that at iteration 
+\begin_inset Formula $i+1$
+\end_inset
+
+ the above statement holds.
+\end_layout
+
+\begin_layout Standard
+Again, from the same argument for the base case - at each iteration of the
+ inner loop the number of elements decrease by two the number of iterations
+ of the inner loop is 
+\begin_inset Formula $\frac{n}{2^{i+1}k}$
+\end_inset
+
+ yeilding that number of subsets.
+ 
+\end_layout
+
+\begin_layout Standard
+The outer loop will terminate once 
+\begin_inset Formula $|S|=1$
+\end_inset
+
+, that is -
+\begin_inset Formula 
+\begin{align*}
+\frac{n}{2^{i}k} & =1\\
+\frac{n}{k} & =2^{i}\\
+log(\frac{n}{k})= & i
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At each iteration we perform 
+\begin_inset Formula $\frac{n}{2^{i}k}$
+\end_inset
+
+ merges each runs in 
+\begin_inset Formula $\Theta(2^{i}k)$
+\end_inset
+
+ for a total of 
+\begin_inset Formula $\Theta(n)$
+\end_inset
+
+, Thus the total running time of the while loop is 
+\begin_inset Formula $\Theta(nlog(\frac{n}{k}))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+All together we get 
+\begin_inset Formula $\Theta(nlog(\frac{n}{k}))+\Theta(nk)$
+\end_inset
+
+.
+\end_layout
+
 \end_body
 \end_document
