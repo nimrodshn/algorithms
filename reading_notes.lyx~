@@ -984,7 +984,7 @@ At each iteration we perform
 \end_inset
 
 , Thus the total running time of the while loop is 
-\begin_inset Formula $\Theta(nlog\frac{n}{k})$
+\begin_inset Formula $\Theta(nlog(\frac{n}{k}))$
 \end_inset
 
 
@@ -992,10 +992,324 @@ At each iteration we perform
 
 \begin_layout Standard
 All together we get 
-\begin_inset Formula $\Theta(nlog\frac{n}{k})+\Theta(nk)$
+\begin_inset Formula $\Theta(nlog(\frac{n}{k})+nk)$
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+c If one chooses 
+\begin_inset Formula $k=1$
+\end_inset
+
+ we get percisly 
+\begin_inset Formula $MergeSort$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+If one chooses 
+\begin_inset Formula $k=n$
+\end_inset
+
+ we get percisly 
+\begin_inset Formula $InsertionSort$
+\end_inset
+
+, Thus the choice of 
+\begin_inset Formula $k$
+\end_inset
+
+ needs to be as close as possible to one.
+ If we choose 
+\begin_inset Formula $k=\Theta(1-\frac{1}{n})=\Theta(\frac{n-1}{n})$
+\end_inset
+
+ which asymptotically is close to one we get - 
+\begin_inset Formula 
+\begin{align*}
+T(n) & =\frac{n(n-1)}{n}+nlog(\frac{n}{\frac{n-1}{n}})\\
+= & \,n-1+nlog(\frac{n^{2}}{n-1})\\
+\approx & \,\Theta(nlogn)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+d In practice one can simply use 
+\begin_inset Formula $MergeSort$
+\end_inset
+
+ or if one had to use the modified version, use smaller values of 
+\begin_inset Formula $k$
+\end_inset
+
+ checking these values 
+\begin_inset Quotes eld
+\end_inset
+
+brute force
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+2-4
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+a The inversions of 
+\begin_inset Formula $[2,3,8,6,1]$
+\end_inset
+
+ are 
+\begin_inset Formula 
+\[
+(8,6),(8,1),(6,1),(3,1),(2,1)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+b The permutation 
+\begin_inset Formula $\tau$
+\end_inset
+
+ of the set 
+\begin_inset Formula $\{1,..,n\}$
+\end_inset
+
+ with the most inversions is 
+\begin_inset Formula $[n,n-1,n-2,...,1]$
+\end_inset
+
+ it has 
+\begin_inset Formula $(n-1)+(n-2)+...+1=\frac{n(n-1)}{2}=\Theta(n^{2})$
+\end_inset
+
+ inversions.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+c We prove the following statement 
+\begin_inset Formula $(x,y)$
+\end_inset
+
+ is in the set of inversions of 
+\begin_inset Formula $S$
+\end_inset
+
+ 
+\begin_inset Formula $\iff$
+\end_inset
+
+ its is switched in some iteration of the while loop in the 
+\begin_inset Formula $InsertionsSort$
+\end_inset
+
+ algorithm.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula $\Longleftarrow$
+\end_inset
+
+ The pair 
+\begin_inset Formula $(x,y)=(A[i],A[j])$
+\end_inset
+
+ is switched in some iteration of the 
+\begin_inset Formula $InsertionSort$
+\end_inset
+
+ algorithm, therefor by the loop definition 
+\begin_inset Formula $j=i+1$
+\end_inset
+
+ and 
+\begin_inset Formula $y<x$
+\end_inset
+
+, therefor 
+\begin_inset Formula $(x,y)$
+\end_inset
+
+ is in the inversions set.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\Longrightarrow$
+\end_inset
+
+ 
+\begin_inset Formula $(x,y)=(A[i],A[j])$
+\end_inset
+
+ are in the inversion set of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ we will prove the following Lemma:
+\end_layout
+
+\end_deeper
+\begin_layout Verse
+
+\series bold
+Lemma:
+\series default
+ if 
+\begin_inset Formula $(x,y)=(A[i],A[j])$
+\end_inset
+
+ are in the inversion set of 
+\begin_inset Formula $A$
+\end_inset
+
+ than for any integer 
+\begin_inset Formula $i<k\leq j$
+\end_inset
+
+ the element 
+\begin_inset Formula $A[k]$
+\end_inset
+
+ is also in the inversion set.
+\end_layout
+
+\begin_layout Standard
+Proof: by induction on the distance between 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Base: 
+\begin_inset Formula $j-i=1$
+\end_inset
+
+.
+ Than by defition 
+\begin_inset Formula $(x,y)$
+\end_inset
+
+ are in the inversion set.
+\end_layout
+
+\begin_layout Standard
+Step: Assume 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ are 
+\begin_inset Formula $k$
+\end_inset
+
+ elements apart and we prove the statement for 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ at distance 
+\begin_inset Formula $k+1$
+\end_inset
+
+.
+ Assume by contradiction that 
+\begin_inset Formula $A[i+k]$
+\end_inset
+
+ is not an inversion, therfor it is larger than any element that came before
+ it - in particular 
+\begin_inset Formula $A[i]$
+\end_inset
+
+, For otherwise it would be an inversion.
+ If 
+\begin_inset Formula $A[i+k]$
+\end_inset
+
+ is larger than 
+\begin_inset Formula $A[j]$
+\end_inset
+
+ than the pair 
+\begin_inset Formula $(A[i+k],A[j])$
+\end_inset
+
+ is an inversion for 
+\begin_inset Formula $j$
+\end_inset
+
+ and 
+\begin_inset Formula $i$
+\end_inset
+
+ are at distance 
+\begin_inset Formula $k+1$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $A[k+i]$
+\end_inset
+
+ is smaller than 
+\begin_inset Formula $A[j]$
+\end_inset
+
+ than the pair 
+\begin_inset Formula $(A[i+k],A[i])$
+\end_inset
+
+ is an inversion since 
+\begin_inset Formula $A[i]>A[j]>A[i+k]$
+\end_inset
+
+ by the assumption the 
+\begin_inset Formula $(A[i],A[j])=(x,y)$
+\end_inset
+
+ is in the inversion set.
+ 
+\begin_inset Formula $\square$
+\end_inset
+
+
 \end_layout
 
 \end_body
