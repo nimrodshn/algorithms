@@ -28,7 +28,7 @@ func TestStack(t *testing.T) {
 		},
 		{
 			testCase: func() error {
-				err := s.Push(10)
+				err := s.Push(11)
 				if err != nil {
 					return err
 				}
@@ -47,7 +47,7 @@ func TestStack(t *testing.T) {
 				if s.Size() != 1 {
 					t.Fatalf("Expected stack size to be %d instead recieved %d", 1, s.Size())
 				}
-				if x != 10 {
+				if x != 11 {
 					t.Fatalf("Expected popped element to be %d instead recieved %d", 10, x)
 				}
 				return nil

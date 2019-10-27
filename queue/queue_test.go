@@ -28,7 +28,7 @@ func TestQueue(t *testing.T) {
 		},
 		{
 			testCase: func() error {
-				err := s.Insert(10)
+				err := s.Insert(11)
 				if err != nil {
 					return err
 				}
@@ -62,7 +62,7 @@ func TestQueue(t *testing.T) {
 				if s.Size() != 0 {
 					t.Fatalf("Expected queue size to be %d instead recieved %d", 0, s.Size())
 				}
-				if x != 10 {
+				if x != 11 {
 					t.Fatalf("Expected removed element to be %d instead recieved %d", 10, x)
 				}
 				return nil
