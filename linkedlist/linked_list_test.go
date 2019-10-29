@@ -1,6 +1,7 @@
 package linkedlist
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -63,6 +64,49 @@ func TestLinkedList(t *testing.T) {
 				return nil
 			},
 			expectedErr: ErrNotFound,
+		},
+		{
+			testCase: func() error {
+				err := l.Remove(22)
+				if err != nil {
+					return err
+				}
+				return nil
+			},
+		},
+		{
+			testCase: func() error {
+				for i := 0; i < 10; i++ {
+					l.Add(i)
+				}
+				// The linked lis should now look like: head->9,8,7...,0
+				i := 9
+				err := l.Iterate(func(l *Link) error {
+					if l.key != i {
+						return fmt.Errorf("Expected %d, instead recieved %d", l.key, i)
+					}
+					i--
+					return nil
+				})
+				if err != nil {
+					return err
+				}
+				// Reverse the linked list.
+				l.Reverse()
+				// Now it should look like: head->0,1,...,9
+				i = 0
+				err = l.Iterate(func(l *Link) error {
+					if l.key != i {
+						return fmt.Errorf("Expected %d, instead recieved %d", l.key, i)
+					}
+					i++
+					return nil
+				})
+				if err != nil {
+					return err
+				}
+				return nil
+			},
 		},
 	}
 	for _, test := range tests {

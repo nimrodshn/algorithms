@@ -62,3 +62,33 @@ func (l *LinkedList) Search(key int) (*Link, error) {
 	}
 	return nil, ErrNotFound
 }
+
+// Reverse returns the reverse of the linked list.
+func (l *LinkedList) Reverse() {
+	newHead := l.head
+	if newHead == nil {
+		return
+	}
+	next := newHead.next
+	curr := newHead.next
+	newHead.next = nil
+	for curr != nil {
+		next = curr.next
+		curr.next = newHead
+		newHead = curr
+		curr = next
+	}
+	l.head = newHead
+}
+
+// Iterate iterates over the linked list and calles f on each link.
+func (l *LinkedList) Iterate(f func(l *Link) error) error {
+	curr := l.head
+	for curr != nil {
+		if err := f(curr); err != nil {
+			return err
+		}
+		curr = curr.next
+	}
+	return nil
+}
