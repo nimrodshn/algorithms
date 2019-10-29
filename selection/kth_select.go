@@ -7,7 +7,7 @@ import (
 // PartitionSelect uses the Lamotu (random variant) partition scheme
 // to select the k'th elemnt in the input array in avarage linear time.
 func PartitionSelect(input []int, k int) int {
-	pivotIdx := partition.RandomPartition(input, 0, len(input)-1)
+	pivotIdx := partition.Lomuto(input, 0, len(input)-1)
 	if pivotIdx == k {
 		return input[pivotIdx]
 	}
