@@ -1,6 +1,6 @@
 package binarysearch
 
-// BinarySearch finds an element x in a sorted arrray
+// BinarySearch finds an element x in a sorted array
 // it returns the index of the element x in the array or -1,
 // if no such element exist.
 func BinarySearch(input []int, x int) int {
