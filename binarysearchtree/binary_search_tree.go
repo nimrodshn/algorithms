@@ -1,7 +1,14 @@
-package binarytree
+package binarysearchtree
 
-// BinaryTree is a representation of a binary tree
-type BinaryTree struct {
+import "errors"
+
+var (
+	// ErrNotFound represent a Node not found error.
+	ErrNotFound = errors.New("Node not found")
+)
+
+// BinarySearchTree is a representation of a binary tree
+type BinarySearchTree struct {
 	root *Node
 }
 
@@ -13,8 +20,15 @@ type Node struct {
 	right       *Node
 }
 
+// New returns a new BinarySearchTree rooted with root.
+func New(root *Node) *BinarySearchTree {
+	return &BinarySearchTree{
+		root: root,
+	}
+}
+
 // Min returns the node with the minimum key.
-func (b *BinaryTree) Min() *Node {
+func (b *BinarySearchTree) Min() *Node {
 	node := b.root
 	for node.left != nil {
 		node = node.left
@@ -23,7 +37,7 @@ func (b *BinaryTree) Min() *Node {
 }
 
 // Max returns the node with the maximum key.
-func (b *BinaryTree) Max() *Node {
+func (b *BinarySearchTree) Max() *Node {
 	node := b.root
 	for node.right != nil {
 		node = node.right
@@ -32,15 +46,15 @@ func (b *BinaryTree) Max() *Node {
 }
 
 // Search returns the node in the Binary Tree with a given key.
-func (b *BinaryTree) Search(key int) *Node {
+func (b *BinarySearchTree) Search(key int) (*Node, error) {
 	return search(b.root, key)
 }
 
 // A helper function for Search.
-func search(x *Node, key int) *Node {
+func search(x *Node, key int) (*Node, error) {
 	for x != nil {
 		if x.key == key {
-			return x
+			return x, nil
 		}
 		if key < x.key {
 			x = x.left
@@ -48,11 +62,11 @@ func search(x *Node, key int) *Node {
 			x = x.right
 		}
 	}
-	return nil
+	return nil, ErrNotFound
 }
 
 // Insert inserts a node into the binary tree.
-func (b *BinaryTree) Insert(node *Node) {
+func (b *BinarySearchTree) Insert(node *Node) {
 	var pred *Node
 	x := b.root
 	for x != nil {
@@ -75,9 +89,9 @@ func (b *BinaryTree) Insert(node *Node) {
 }
 
 // Successor returns the successor of a given node (with respect to its key).
-func (b *BinaryTree) Successor(node *Node) *Node {
+func (b *BinarySearchTree) Successor(node *Node) *Node {
 	if node.right != nil {
-		rightSubTree := BinaryTree{node.right}
+		rightSubTree := BinarySearchTree{node.right}
 		return rightSubTree.Min()
 	}
 	y := node.predecessor
@@ -89,7 +103,7 @@ func (b *BinaryTree) Successor(node *Node) *Node {
 }
 
 // Delete delets a node from the binary tree.
-func (b *BinaryTree) Delete(node *Node) {
+func (b *BinarySearchTree) Delete(node *Node) {
 	var y *Node
 	var x *Node
 	// If either of the nodes children is nil.
