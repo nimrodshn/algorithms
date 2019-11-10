@@ -90,46 +90,33 @@ func (b *BinaryTree) Successor(node *Node) *Node {
 
 // Delete delets a node from the binary tree.
 func (b *BinaryTree) Delete(node *Node) {
-	y := node.predecessor
-	// Both of the nodes children are empty (i.e. node is a leaf).
-	// We simply remove the node.
-	if node.right == nil && node.left == nil {
-		if y.right == node {
-			y.right = nil
-		} else {
-			y.left = nil
-		}
-		return
-	}
-	// One of the nodes children is nil.
-	// Splice out the node and attach its non-nil child to his parent.
-	if node.right == nil {
-		if y.right == node {
-			y.right = node.left
-		} else {
-			y.left = node.left
-		}
-		return
-	} else if node.left == nil {
-		if y.right == node {
-			y.right = node.right
-		} else {
-			y.left = node.right
-		}
-		return
-	}
-	// Both of the nodes are non-nil.
-	successor := b.Successor(node)
+	var y *Node
 	var x *Node
-	// fix childrens predecessor.
-	if y.left != nil {
-		x = successor.left
+	// If either of the nodes children is nil.
+	// We simply remove the node and splice in it's children.
+	// If both are non-nil we replace node with its successor.
+	if node.right == nil || node.left == nil {
+		y = node
 	} else {
-		x = successor.right
+		y = b.Successor(node)
 	}
-	x.predecessor = successor.predecessor
-	if successor != node {
-		// replace the node with its successor.
-		node.key = successor.key
+	if y.left != nil {
+		x = y.left
+	} else {
+		x = y.right
+	}
+	// Check end-case of y being the root.
+	if y.predecessor == nil {
+		b.root = x
+	} else {
+		if y == y.predecessor.left {
+			y.predecessor.left = x
+		} else {
+			y.predecessor.right = x
+		}
+	}
+	// Replace node's key with its successors key.
+	if y != node {
+		node.key = y.key
 	}
 }
