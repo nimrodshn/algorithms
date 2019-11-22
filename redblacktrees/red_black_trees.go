@@ -24,15 +24,25 @@ type Node struct {
 func (t *RedBlackTree) RotateLeft(node *Node) {
 	y := node.right
 	node.right = y.left
-	y.left.parent = node
+	if y.left != nil {
+		y.left.parent = node
+	}
 	y.parent = node.parent
 	node.parent = y
+	if t.root == node {
+		t.root = y
+	}
 }
 
 func (t *RedBlackTree) RotateRight(node *Node) {
 	y := node.left
 	node.left = y.right
-	y.right.parent = node
+	if y.right != nil {
+		y.right.parent = node
+	}
 	y.parent = node.parent
 	node.parent = y
+	if t.root == node {
+		t.root = y
+	}
 }
