@@ -31,6 +31,12 @@ func (t *RedBlackTree) RotateLeft(node *Node) {
 	node.parent = y
 	if t.root == node {
 		t.root = y
+	} else {
+		if node.parent.right == node {
+			node.parent.right = y
+		} else {
+			node.parent.left = y
+		}
 	}
 }
 
@@ -44,5 +50,11 @@ func (t *RedBlackTree) RotateRight(node *Node) {
 	node.parent = y
 	if t.root == node {
 		t.root = y
+	} else {
+		if node.parent.right == node {
+			node.parent.right = y
+		} else {
+			node.parent.left = y
+		}
 	}
 }
